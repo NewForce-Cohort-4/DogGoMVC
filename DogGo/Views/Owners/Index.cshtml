@@ -1,0 +1,117 @@
+﻿@model IEnumerable<DogGo.Models.Owner>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1 class="money">Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Phone)
+            </th>
+            <th>
+                Dogs
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+            <td>
+                @foreach(var dog in item.Dogs)
+                {
+                    <p>@dog.Name</p>
+                }
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+
+<h1 class="background">Owners</h1>
+
+<div class="container">
+    <div class="row">
+        @foreach (var item in Model)
+      
+        {
+            <div class="card-@item.Id m-3 col">
+                <div class="card" style="width: 18rem;">
+                    <h3 class="card-header bg-primary text-light">
+                        @item.Name
+                    </h3>
+
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">A: @item.Address</li>
+                        <li class="list-group-item">P: @item.Phone</li>
+                        <li class="list-group-item">E: @item.Email</li>
+                    </ul>
+                    <h4>Dogs:</h4>
+                    <div class="card-deck">
+                        @foreach (var dog in item.Dogs)
+                        {
+                            
+                            <div class="card">
+                                @if (dog.ImageUrl != null)
+                                {
+                                <img class="card-img-top img-fluid" src="@dog.ImageUrl" alt="Card image cap"/>
+                                }
+                                <div class="card-body">
+                                    <h5 class="card-title">@dog.Name</h5>
+                                    <p class="card-text">@dog.Breed</p>
+                                    <p class="card-text"><small class="text-muted">@dog.Notes</small></p>
+                                </div>
+                            </div>
+
+
+                        }
+                    </div>
+                    </div>
+
+                    </div>
+
+
+        }
+    </div>
+</div>
